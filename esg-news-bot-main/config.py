@@ -20,7 +20,7 @@ DATABASE_PATH = DB_PATH
 
 # Логирование
 LOG_LEVEL = os.getenv('LOG_LEVEL', 'INFO')
-LOG_DIR = BASE_DIR / 'logs'
+LOG_DIR = Path.cwd() / "logs"
 LOG_DIR.mkdir(exist_ok=True)
 
 # Парсинг

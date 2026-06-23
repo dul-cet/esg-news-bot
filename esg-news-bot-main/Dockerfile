@@ -37,6 +37,7 @@ RUN pip install -r requirements.txt
 # Runtime stage - финальный образ
 # ==============================================================================
 FROM base as runtime
+WORKDIR /app
 
 # Копировать установленные пакеты из builder stage
 COPY --from=builder /usr/local /usr/local

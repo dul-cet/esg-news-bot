@@ -31,7 +31,7 @@ FROM base as builder
 COPY requirements.txt .
 
 # Создать wheels для всех зависимостей (быстрее устанавливать позже)
-RUN pip install --user --no-warn-script-location -r requirements.txt
+RUN pip install -r requirements.txt
 
 # ==============================================================================
 # Runtime stage - финальный образ

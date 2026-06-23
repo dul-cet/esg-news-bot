@@ -14,15 +14,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Telegram Bot Token (установите свой токен)
 TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN', 'your_telegram_bot_token')
 
-# База данных
-DB_PATH = os.getenv('DATABASE_PATH', str(BASE_DIR / 'data' / 'news.db'))
-DATABASE_PATH = DB_PATH
-
-# Логирование
-LOG_LEVEL = os.getenv('LOG_LEVEL', 'INFO')
+# Хранилизще данных и логов
+DATA_DIR = BASE_DIR / "data"
 LOG_DIR = BASE_DIR / "logs"
+
+DATA_DIR.mkdir(parents=True, exist_ok=True)
 LOG_DIR.mkdir(parents=True, exist_ok=True)
-(Path(BASE_DIR / "data")).mkdir(parents=True, exist_ok=True)
+
+# База данных
+DATABASE_PATH = os.getenv(
+    "DATABASE_PATH",
+    str(DATA_DIR / "news.db")
+)
 
 # Парсинг
 PARSERS_CONFIG = {

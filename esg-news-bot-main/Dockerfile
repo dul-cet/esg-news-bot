@@ -39,10 +39,10 @@ RUN pip install -r requirements.txt
 FROM base as runtime
 
 # Копировать установленные пакеты из builder stage
-COPY --from=builder /root/.local /root/.local
+COPY --from=builder /usr/local /usr/local
 
 # Обновить PATH для использования пакетов
-ENV PATH=/root/.local/bin:$PATH
+ENV PATH=/usr/local/bin:$PATH
 
 # Создать необходимые директории
 RUN mkdir -p /app/data /app/logs && \

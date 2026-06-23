@@ -1,0 +1,37 @@
+version: '3.9'
+
+services:
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: newsbot-bot
+    image: newsbot-esg:latest
+    environment:
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      DATABASE_PATH: /app/data/news.db
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      GEMINI_MODEL_NAME: ${GEMINI_MODEL_NAME:-gemini-2.0-flash}
+      GEMINI_TEMPERATURE: ${GEMINI_TEMPERATURE:-0.3}
+      REQUEST_TIMEOUT_SEC: ${REQUEST_TIMEOUT_SEC:-8}
+      REQUEST_MAX_RETRIES: ${REQUEST_MAX_RETRIES:-3}
+      REQUEST_RETRY_BACKOFF_SEC: ${REQUEST_RETRY_BACKOFF_SEC:-0.5}
+      MAX_RESPONSE_TIME_SEC: ${MAX_RESPONSE_TIME_SEC:-2.0}
+      CLASSIFIER_ENABLED: ${CLASSIFIER_ENABLED:-true}
+      CLASSIFIER_MIN_CONFIDENCE: ${CLASSIFIER_MIN_CONFIDENCE:-0.3}
+      PUSH_NOTIFICATIONS_ENABLED: ${PUSH_NOTIFICATIONS_ENABLED:-true}
+      PUSH_DIGEST_HOUR: ${PUSH_DIGEST_HOUR:-9}
+      TIMEZONE: ${TIMEZONE:-Asia/Almaty}
+      ENVIRONMENT: ${ENVIRONMENT:-development}
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    restart: unless-stopped
+    mem_limit: 512m
+    cpus: '1'
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '3'

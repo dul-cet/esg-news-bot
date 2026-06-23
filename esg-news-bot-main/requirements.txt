@@ -1,0 +1,9 @@
+requests==2.31.0
+beautifulsoup4==4.12.2
+lxml>=4.9.4
+feedparser>=6.0.11
+python-telegram-bot>=21.10
+pytz==2023.3
+aiohttp==3.9.1
+google-generativeai>=0.8.3
+apscheduler==3.10.4

@@ -135,7 +135,7 @@ Thumbs.db
 
 # Database
 *.db
-news.db
+./news.db
 
 # Logs
 logs/

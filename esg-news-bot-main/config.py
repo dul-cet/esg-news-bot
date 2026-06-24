@@ -55,6 +55,19 @@ PARSERS_CONFIG = {
             'https://inbusiness.kz/kz/rss',
             'https://kaz.tengrinews.kz/news.rss'
         ]
+    },
+    # News feeds (tagged as ru content stream for local users).
+    'rss_ru': {
+        'enabled': True,
+        'interval_hours': 6,
+        'parser': 'Parse_RSSFeeds',
+        'lang': 'ru',
+        'max_items_per_feed': 25,
+        'feed_urls': [
+            'https://esgnews.com/ru/feed/',
+            'https://kapital.kz/rss/',
+            'https://forbes.kz/rss'
+        ]
     }
 }
 

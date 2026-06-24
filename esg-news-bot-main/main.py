@@ -200,10 +200,10 @@ class NewsAggregator:
                         # Пропустить новости с низкой уверенностью
                         # if score < CLASSIFIER_CONFIG['min_confidence']:
                            # continue
-                        CLASSIFIER_CONFIG = {
-                            'enabled': True,
-                            'min_confidence': 0.0   # 🔥 было например 0.5
-                            }
+                        # CLASSIFIER_CONFIG = {
+                            #'enabled': True,
+                            #'min_confidence': 0.0   # 🔥 было например 0.5
+                            #}
 
                         allowed_categories = parser_config.get('allowed_categories') or []
                         if allowed_categories and category not in allowed_categories:

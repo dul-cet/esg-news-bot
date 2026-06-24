@@ -360,7 +360,7 @@ def main():
     
     # Режим нормального запуска
     # Инициализировать бот
-    if TELEGRAM_BOT_TOKEN == 'YOUR_BOT_TOKEN_HERE':
+    if not TELEGRAM_BOT_TOKEN or TELEGRAM_BOT_TOKEN == 'your_telegram_bot_token':
         logger.warning("⚠️  ВНИМАНИЕ: Установите TELEGRAM_BOT_TOKEN в config.py или переменные окружения!")
         logger.info("Запуск только агрегатора (без Telegram бота)")
         # Запустить сбор новостей один раз

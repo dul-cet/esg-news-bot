@@ -3,6 +3,7 @@
 """
 
 import os
+import logging
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -26,6 +27,8 @@ DATABASE_PATH = os.getenv(
     "DATABASE_PATH",
     str(DATA_DIR / "news.db")
 )
+
+LOG_LEVEL = getattr(logging, os.getenv("LOG_LEVEL", "INFO").upper(), logging.INFO)
 
 # Парсинг
 PARSERS_CONFIG = {

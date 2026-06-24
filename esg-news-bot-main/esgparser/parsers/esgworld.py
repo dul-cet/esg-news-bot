@@ -1,31 +1,71 @@
-import feedparser
+import time
+import requests
+from bs4 import BeautifulSoup
 from datetime import datetime
+import pytz
+
+from esgparser.core.ParsClasses import NewsClass
+from esgparser.core.net import safe_get
 
 
-class ESGWorldParser:
-    def __init__(self, config):
-        self.config = config
+class ESGWorldArticle(NewsClass):
+    def __init__(self, soup, lang, site_url):
+        super().__init__()
 
-    def fetch(self):
-        all_news = []
+        # Заголовок
+        self.title = soup.find('a').text.strip()
 
-        for url in self.config.get("feed_urls", []):
-            feed = feedparser.parse(url)
+        # Ссылка
+        self.url = soup.find('a')['href']
 
-            for entry in feed.entries[: self.config.get("max_items_per_feed", 10)]:
-                news = {
-                    "title": entry.get("title"),
-                    "link": entry.get("link"),
-                    "summary": entry.get("summary", ""),
-                    "published": self.parse_date(entry),
-                    "lang": self.config.get("lang", "ru"),
-                }
-                all_news.append(news)
+        if not self.url.startswith('http'):
+            self.url = site_url.rstrip('/') + self.url
 
-        print(f"[ESGWORLD] найдено: {len(all_news)}")
-        return all_news
+        # Дата (примерная, если не найдена)
+        self.date = pytz.utc.localize(datetime.utcnow())
 
-    def parse_date(self, entry):
-        if hasattr(entry, "published_parsed") and entry.published_parsed:
-            return datetime(*entry.published_parsed[:6])
-        return datetime.utcnow()
+        self.site_url = site_url
+        self.lang = lang
+
+    def getExtra(self, session):
+        time.sleep(0.1)
+
+        try:
+            raw = safe_get(self.url, session=session)
+            soup = BeautifulSoup(raw.text, 'lxml')
+
+            # Описание
+            p = soup.find('p')
+            if p:
+                self.digest = p.text.strip()
+
+            # Картинка
+            img = soup.find('img')
+            if img and img.get('src'):
+                self.image_url = img['src']
+
+        except Exception as e:
+            print("ESGWorld extra error:", e)
+
+
+def Parse_ESGWorld():
+    url = "https://esgworld.news/"
+    articles = []
+
+    try:
+        raw = safe_get(url)
+        soup = BeautifulSoup(raw.text, 'lxml')
+
+        blocks = soup.find_all('article')
+
+        for block in blocks:
+            try:
+                article = ESGWorldArticle(block, 'ru', url)
+                articles.append(article)
+            except:
+                continue
+
+    except Exception as e:
+        print("ESGWorld parse error:", e)
+
+    return articles

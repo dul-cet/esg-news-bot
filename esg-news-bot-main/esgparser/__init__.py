@@ -30,5 +30,5 @@ __all__ = [
     'Parse_Tengrinews',
     'Parse_RSSFeeds',
     'Parse_GenericSite',
-    'ESGWorldParser'
+    'Parse_ESGWorld',
 ]

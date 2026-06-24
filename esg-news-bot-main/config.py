@@ -56,46 +56,11 @@ PARSERS_CONFIG = {
             'https://kaz.tengrinews.kz/news.rss'
         ]
     },
-    # Российские ESG новости (через универсальный парсер сайта)
-'generic_ru_esg': {
-    'enabled': True,                     # Включен ли парсер
-    'interval_hours': 6,                 # Как часто запускать (каждые 6 часов)
-    'parser': 'Parse_GenericSite',      # Используем универсальный парсер
-    'lang': 'ru',                        # Язык новостей (русский)
-    
-    # Начальная страница сайта
-    'start_url': 'https://esgworld.news/',
-    
-    # Какие ссылки считать новостями (оставляем ВСЕ статьи)
-    'include_patterns': [
-        r'/[0-9]{4}/',   # статьи обычно содержат год в URL
-    ],
-    
-    # Какие ссылки исключить
-    'exclude_patterns': [
-        r'/tag/',
-        r'/category/',
-    ],
-    
-    # Максимум новостей за один запуск
-    'max_items': 25,
-    },
-    
-    'rss_ru': {
-    'enabled': True,
-    'interval_hours': 6,
-    'parser': 'ESGWorldParser',  # ВАЖНО!
-    'lang': 'ru',
-    'max_items_per_feed': 25,
-    'feed_urls': [
-        'https://esgworld.news/rss'
-    ]
-},
-
+    # Российские ESG новости (через универсальный парсер сайта)    
     'esgworld': {
     'enabled': True,
     'interval_hours': 6,
-    'parser': 'ESGWorldParser',  # ВАЖНО
+    'parser': 'Parse_ESGWorld',
     'lang': 'ru',
     'max_items_per_feed': 25,
     'feed_urls': [

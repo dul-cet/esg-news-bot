@@ -13,7 +13,7 @@ class ESGWorldArticle(NewsClass):
         super().__init__()
 
         # Заголовок
-        self.title = soup.find('a').text.strip()
+        self.title = soup.text.strip()
 
         # Ссылка
         self.url = soup.find('a')['href']
@@ -56,7 +56,7 @@ def Parse_ESGWorld():
         raw = safe_get(url)
         soup = BeautifulSoup(raw.text, 'lxml')
 
-        blocks = soup.find_all('article')
+        blocks = soup.select('h2.entry-title')
 
         for block in blocks:
             try:

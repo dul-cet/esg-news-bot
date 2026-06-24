@@ -1,6 +1,10 @@
 """
 Главный файл для запуска ESG News Bot
 """
+import sys
+import os
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 import asyncio
 import logging
 import time
@@ -13,7 +17,7 @@ from config import (
     CLASSIFIER_CONFIG,
     LOG_LEVEL
 )
-from parsers.esgworld import Parse_ESGWorld
+from esgparser.parsers.esgworld import Parse_ESGWorld
 from esgparser.core import NewsDatabase
 from esgparser.classifier import ESGClassifier
 from esgparser.bot import ESGNewsBot

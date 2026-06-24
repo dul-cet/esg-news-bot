@@ -95,7 +95,12 @@ PARSERS_CONFIG = {
     'esgworld': {
     'enabled': True,
     'interval_hours': 6,
-    'parser': 'Parse_ESGWorld',
+    'parser': 'ESGWorldParser',  # ВАЖНО
+    'lang': 'ru',
+    'max_items_per_feed': 25,
+    'feed_urls': [
+        'https://esgworld.news/rss'
+    ]
 }
 }
 

@@ -17,7 +17,6 @@ from config import (
     CLASSIFIER_CONFIG,
     LOG_LEVEL
 )
-from esgparser.parsers.esgworld import Parse_ESGWorld
 from esgparser.core import NewsDatabase
 from esgparser.classifier import ESGClassifier
 from esgparser.bot import ESGNewsBot
@@ -31,6 +30,7 @@ from esgparser.parsers import (
     Parse_Tengrinews,
     Parse_RSSFeeds,
     Parse_GenericSite,
+    Parse_ESGWorld,
 )
 
 # Настройка логирования

@@ -1,54 +1,31 @@
-import requests
-from bs4 import BeautifulSoup
-from urllib.parse import urljoin
+import feedparser
+from datetime import datetime
 
 
-def Parse_ESGWorld():
-    url = "https://esgworld.news/"
-    headers = {
-        "User-Agent": "Mozilla/5.0"
-    }
+class ESGWorldParser:
+    def __init__(self, config):
+        self.config = config
 
-    response = requests.get(url, headers=headers, timeout=10)
-    soup = BeautifulSoup(response.text, "html.parser")
+    def fetch(self):
+        all_news = []
 
-    articles = []
-    seen = set()
+        for url in self.config.get("feed_urls", []):
+            feed = feedparser.parse(url)
 
-    # ищем все ссылки
-    for a in soup.find_all("a", href=True):
-        link = a["href"]
+            for entry in feed.entries[: self.config.get("max_items_per_feed", 10)]:
+                news = {
+                    "title": entry.get("title"),
+                    "link": entry.get("link"),
+                    "summary": entry.get("summary", ""),
+                    "published": self.parse_date(entry),
+                    "lang": self.config.get("lang", "ru"),
+                }
+                all_news.append(news)
 
-        # нормализуем ссылку
-        if not link.startswith("http"):
-            link = urljoin(url, link)
+        print(f"[ESGWORLD] найдено: {len(all_news)}")
+        return all_news
 
-        # фильтр — только статьи
-        if "esgworld.news" not in link:
-            continue
-        if "/tag/" in link or "/category/" in link:
-            continue
-
-        # убираем дубликаты
-        if link in seen:
-            continue
-        seen.add(link)
-
-        title = a.get_text(strip=True)
-
-        # пропускаем пустые
-        if not title or len(title) < 20:
-            continue
-
-        articles.append({
-            "title": title,
-            "link": link,
-            "description": "",
-            "lang": "ru"
-        })
-
-        if len(articles) >= 20:
-            break
-
-    print(f"[ESGWORLD] найдено статей: {len(articles)}")
-    return articles
+    def parse_date(self, entry):
+        if hasattr(entry, "published_parsed") and entry.published_parsed:
+            return datetime(*entry.published_parsed[:6])
+        return datetime.utcnow()

@@ -27,4 +27,8 @@ __all__ = [
     'Parse_informkzRuNews',
     'ESGClassifier',
     'ESGNewsBot'
+    'Parse_Tengrinews',
+    'Parse_RSSFeeds',
+    'Parse_GenericSite',
+    'ESGWorldParser'
 ]

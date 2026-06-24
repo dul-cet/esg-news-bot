@@ -13,6 +13,7 @@ from config import (
     CLASSIFIER_CONFIG,
     LOG_LEVEL
 )
+from parsers.esgworld import Parse_ESGWorld
 from esgparser.core import NewsDatabase
 from esgparser.classifier import ESGClassifier
 from esgparser.bot import ESGNewsBot
@@ -48,6 +49,7 @@ class NewsAggregator:
         self.parsers = {
             'Parse_EsgnewscomRuNews': Parse_EsgnewscomRuNews,
             'Parse_EsgnewscomEnNews': Parse_EsgnewscomEnNews,
+            'Parse_ESGWorld': Parse_ESGWorld,
             'Parse_GovkznewsRu': Parse_GovkznewsRu,
             'Parse_GovkznewsKz': Parse_GovkznewsKz,
             'Parse_informkzRuNews': Parse_informkzRuNews,

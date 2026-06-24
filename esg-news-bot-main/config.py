@@ -79,7 +79,24 @@ PARSERS_CONFIG = {
     
     # Максимум новостей за один запуск
     'max_items': 25,
-    }
+    },
+    
+    'rss_ru': {
+    'enabled': True,
+    'interval_hours': 6,
+    'parser': 'ESGWorldParser',  # ВАЖНО!
+    'lang': 'ru',
+    'max_items_per_feed': 25,
+    'feed_urls': [
+        'https://esgworld.news/rss'
+    ]
+},
+
+    'esgworld': {
+    'enabled': True,
+    'interval_hours': 6,
+    'parser': 'Parse_ESGWorld',
+}
 }
 
 # ESG Classifier

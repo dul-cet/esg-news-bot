@@ -206,7 +206,7 @@ class NewsAggregator:
                             #}
 
                         allowed_categories = parser_config.get('allowed_categories') or []
-                        if allowed_categories and category not in allowed_categories:
+                        if allowed_categories and category and category not in allowed_categories:
                             continue
                     
                     # Извлечь ключевые слова
